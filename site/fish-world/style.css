@@ -1,0 +1,119 @@
+:root{
+  --hud-bg: rgba(0,0,0,.38);
+  --hud-line: rgba(255,255,255,.14);
+  --txt: rgba(255,255,255,.92);
+  --muted: rgba(255,255,255,.72);
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:#000;
+  color:var(--txt);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", Arial, sans-serif;
+}
+
+#app{ position:relative; width:100%; height:100%; overflow:hidden; }
+
+#cam{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  transform: scaleX(1);
+}
+
+/* Underwater overlay */
+#bgOverlay{
+  position:absolute; inset:0;
+  background: url("../assets/bg/underwater_bg_day.png") center/cover no-repeat;
+  opacity:.55;
+  mix-blend-mode: screen;
+  pointer-events:none;
+}
+
+/* bubble layer */
+#bubbles{
+  position:absolute; inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 10% 80%, rgba(255,255,255,.35) 0 2px, transparent 3px),
+    radial-gradient(circle at 30% 90%, rgba(255,255,255,.25) 0 3px, transparent 4px),
+    radial-gradient(circle at 70% 85%, rgba(255,255,255,.28) 0 2px, transparent 3px),
+    radial-gradient(circle at 85% 95%, rgba(255,255,255,.20) 0 4px, transparent 5px);
+  opacity:.35;
+  animation: bubblesMove 6s linear infinite;
+  filter: blur(.2px);
+}
+@keyframes bubblesMove{
+  from{ transform: translateY(0); }
+  to{ transform: translateY(-70px); }
+}
+
+/* WebGL */
+#gl{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  display:block;
+}
+
+/* Debug canvas */
+#dbg{
+  position:absolute;
+  left:12px;
+  top:12px;
+  width:min(44vw, 520px);
+  height:auto;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:12px;
+  background: rgba(0,0,0,.25);
+  display:none;
+}
+
+/* HUD */
+#hud{
+  position:absolute;
+  left:12px; right:12px; bottom:12px;
+  padding:12px;
+  border:1px solid var(--hud-line);
+  background: var(--hud-bg);
+  border-radius:16px;
+  backdrop-filter: blur(8px);
+}
+
+#hud .row{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  margin-bottom:10px;
+}
+
+.pill{
+  padding:8px 10px;
+  border-radius:999px;
+  border:1px solid var(--hud-line);
+  background: rgba(255,255,255,.06);
+  font-size:13px;
+}
+
+.btn{
+  padding:10px 12px;
+  border-radius:12px;
+  border:1px solid var(--hud-line);
+  background: rgba(255,255,255,.10);
+  color: var(--txt);
+  font-size:14px;
+}
+.btn:active{ transform: translateY(1px); }
+
+.btn.primary{
+  background: rgba(255,255,255,.18);
+}
+
+.hint{
+  color: var(--muted);
+  font-size:13px;
+  line-height:1.35;
+}
