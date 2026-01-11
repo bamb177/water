@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Fish World AR - Lobster</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Camera -->
+    <video id="cam" autoplay playsinline muted></video>
+
+    <!-- Underwater overlay -->
+    <div id="bgOverlay"></div>
+    <div id="bubbles"></div>
+
+    <!-- Debug canvas (optional) -->
+    <canvas id="dbg"></canvas>
+
+    <!-- WebGL -->
+    <canvas id="gl"></canvas>
+
+    <!-- HUD -->
+    <div id="hud">
+      <div class="row">
+        <div class="pill" id="cvStatus">OpenCV: 로딩중</div>
+        <div class="pill" id="trackStatus">Tracking: 대기</div>
+        <div class="pill" id="fps">FPS: -</div>
+      </div>
+
+      <div class="row">
+        <button id="btnStart" class="btn primary">카메라 시작</button>
+        <button id="btnFlip" class="btn">카메라 전환</button>
+        <button id="btnBg" class="btn">배경 전환</button>
+        <button id="btnDbg" class="btn">디버그 ON/OFF</button>
+      </div>
+
+      <div class="hint">
+        카드의 “큰 사각 프레임”이 화면에 충분히 크게 나오도록 비추세요. 반사광이 심하면 각도를 약간 바꾸면 인식률이 크게 좋아집니다.
+      </div>
+    </div>
+
+    <!-- OpenCV.js -->
+    <script>
+      window.__cvReady = false;
+      function onOpenCvReady(){
+        window.__cvReady = true;
+        const el = document.getElementById('cvStatus');
+        if(el) el.textContent = 'OpenCV: 준비완료';
+      }
+    </script>
+    <script async src="https://docs.opencv.org/4.x/opencv.js" onload="onOpenCvReady()"></script>
+
+    <!-- App -->
+    <script type="module" src="./app.js"></script>
+  </div>
+</body>
+</html>
